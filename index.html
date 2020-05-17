@@ -7,6 +7,9 @@
   </head>
   <body>
     <a href="javascript:window.Native.scaner();">扫描二维码</a>
+    <div>
+         <span>扫描结果:</span><span id="result"></span>
+    </div>
   </body>
   <script type="text/javascript">
     window.browser={
@@ -41,7 +44,7 @@
 
 
     function scanResult(code){
-        alert('code--'+code);
+      document.querySelector('#result').innerHTML = code;
     }
     </script>
 </html>
