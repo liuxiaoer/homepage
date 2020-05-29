@@ -1,0 +1,17 @@
+!doctype
+<html>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+
+<body>
+<a href='./index.html'>index</a>
+<div id="container"></div>
+</body>
+
+<script type="text/javascript">
+  $(function(){
+     $(document).pjax('a', '#container')；
+   });
+</script>
+</html>
