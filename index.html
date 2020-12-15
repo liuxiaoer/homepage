@@ -16,6 +16,7 @@
       </div>
     
     <div><a href="javascript:downloadTest();">文件下载测试</a></div>
+    <div><a href="javascript:openDownloadPage();">已下载文件</a></div>
 
   </body>
     <script>
@@ -26,6 +27,10 @@
       
       function downloadTest(){
         CustomJSBridge.download('图片.png','http://test.fs.rchvip.cn/group1/M00/00/5F/rBEEDl3fJpWAQ_urAAF81vigeT4426.png');
+        }
+      
+      function openDownloadPage(){
+        CustomJSBridge.openDownloadPage();
         }
     </script>
 
