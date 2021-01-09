@@ -17,9 +17,15 @@
     
     <div><a href="javascript:downloadTest();">文件下载测试</a></div>
     <div><a href="javascript:openDownloadPage();">已下载文件</a></div>
+    
+    <div>
+       二维码扫描结果：
+      <span id="qrcode_result"></span>
+    </div>
 
   </body>
     <script>
+      var $ = document.querySelector;
       // APP版本号
       function pageLoaded(){
           alert(window.appVersion);
@@ -32,6 +38,11 @@
       function openDownloadPage(){
         CustomJSBridge.openDownloadPage();
         }
+      
+      function scanResult(code){
+        var qrcode = $('#qrcode_result');
+        qrcode.innerHTML = code;
+      }
     </script>
 
 </html>
