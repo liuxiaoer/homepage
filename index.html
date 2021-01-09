@@ -25,7 +25,6 @@
 
   </body>
     <script>
-      var $ = document.querySelector;
       // APP版本号
       function pageLoaded(){
           alert(window.appVersion);
@@ -40,7 +39,7 @@
         }
       
       function scanResult(code){
-        var qrcode = $('#qrcode_result');
+        var qrcode = document.querySelector('#qrcode_result');
         qrcode.innerHTML = code;
       }
     </script>
