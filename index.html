@@ -19,8 +19,8 @@
     <div><a href="javascript:openDownloadPage();">已下载文件</a></div>
     
     <div>
-       二维码扫描结果：
-      <span id="qrcode_result"></span>
+      <a href="javascript:qrCodeScan();">二维码扫描</a></br>
+       二维码扫描结果：<span id="qrcode_result"></span>
     </div>
 
   </body>
@@ -36,7 +36,11 @@
       
       function openDownloadPage(){
         CustomJSBridge.openDownloadPage();
-        }
+       }
+      
+      function qrCodeScan(){
+        CustomJSBridge.qrCodeScan();
+       }
       
       function scanResult(code){
         var qrcode = document.querySelector('#qrcode_result');
