@@ -45,6 +45,7 @@
       function scanResult(code){
         var qrcode = document.querySelector('#qrcode_result');
         code += '?_=' + new Date();
+        alert(code)
         window.location.href = code;
       }
     </script>
