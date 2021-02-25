@@ -69,7 +69,11 @@
   
   <script>
     function open(){
-      new Signature()
+      new Signature({
+         onsumbit:function(data){
+            console.log(data);
+         }
+      })
     }
     </script>
 </html>
