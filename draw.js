@@ -1,10 +1,3 @@
-window.onload = function() {
-    var lc = new Signature({
-        onsubmit:function(imgData){
-            console.log(imgData)
-        }
-    });
-};
 
 function Signature(params){
     this.clearOnSubmit = true;
