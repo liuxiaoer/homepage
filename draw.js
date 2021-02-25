@@ -1,27 +1,103 @@
 window.onload = function() {
-    new lineCanvas({
-        el: document.getElementById("canvas"),//绘制canvas的父级div
-        clearEl: document.getElementById("clearCanvas"),//清除按钮
-        saveEl: document.getElementById("saveCanvas"),//保存按钮
-        //      linewidth:1,//线条粗细，选填
-        //      color:"black",//线条颜色，选填
-        //      background:"#ffffff"//线条背景，选填
+    var lc = new Signature({
+        onsubmit:function(imgData){
+            console.log(imgData)
+        }
     });
 };
-function lineCanvas(obj) {
+
+function Signature(params){
+    this.clearOnSubmit = true;
+    this.closeOnSubmit = true;
+    if (typeof params == "object"){
+        if (!!params.container) {
+            if(typeof params.container == Element){
+                this.el = params.container;
+            }else if(typeof params.container == "string"){
+                this.el = document.querySelector(params)   
+            }
+        }else{
+            this.el = document.querySelector('body');
+        }
+        if(typeof params.onsubmit == "function")this.onsubmit = params.onsubmit;
+        !!params.clearOnSubmit && this.clearOnSubmit == params.clearOnSubmit;
+        !!params.closeOnSubmit && this.closeOnSubmit == params.closeOnSubmit;
+    }else if(typeof params == "string"){
+        this.el = document.querySelector(params)   
+    }else{
+        this.el = document.querySelector('body');
+    }
+    this.element();
+}
+
+Signature.prototype.element = function() {
+    this.container = document.createElement('div');
+    this.container.style.position = 'fixed';
+    this.container.style.top = 0;
+    this.container.style.left = 0;
+    this.container.style.width = this.el.clientWidth + 'px';
+    this.container.style.height = this.el.clientHeight + 'px';
+    this.el.appendChild(this.container);
+
+    this.clearEl = document.createElement('p');
+    this.clearEl.innerText = '清除';
+    this.clearEl.style.width = '50%';
+    this.clearEl.style.height = '40px';
+    this.clearEl.style.lineHeight = '40px';
+    this.clearEl.style.textAlign = 'center';
+    this.clearEl.style.position = 'absolute';
+    this.clearEl.style.bottom = 0;
+    this.clearEl.style.right = 0;
+    this.clearEl.style.border = '1px solid #DEDEDE';
+    this.clearEl.style.zIndex = 1001;
+    this.container.appendChild(this.clearEl);
+
+    this.saveEl = document.createElement('p');
+    this.saveEl.innerText = '保存';
+    this.saveEl.style.width = '50%';
+    this.saveEl.style.height = '40px';
+    this.saveEl.style.lineHeight = '40px';
+    this.saveEl.style.textAlign = 'center';
+    this.saveEl.style.position = 'absolute';
+    this.saveEl.style.bottom = 0;
+    this.saveEl.style.left = 0;
+    this.saveEl.style.border = '1px solid #DEDEDE';
+    this.saveEl.style.zIndex = 1001;
+    this.container.appendChild(this.saveEl);
+
+
+    this.close = document.createElement('span');
+    this.close.style.position = 'absolute';
+    this.close.style.top = '10px';
+    this.close.style.right = '10px';
+    this.close.innerText = 'X';
+    this.close.style.zIndex = 1001;
+    this.close.style.border = '1px solid #999';
+    this.close.style.color = '#999';
+    this.close.style.borderRadius = '50%';
+    this.close.style.width = '20px';
+    this.close.style.height = '20px';
+    this.close.style.lineHeight = '20px';
+    this.close.style.textAlign = 'center';
+    this.container.appendChild(this.close);
+
+
     this.linewidth = 1;
     this.color = "#000000";
     this.background = "#ffffff";
-    for (var i in obj) {
-        this[i] = obj[i];
-    };
+
+    
+
     this.canvas = document.createElement("canvas");
-    this.el.appendChild(this.canvas);
+    this.container.appendChild(this.canvas);
     this.cxt = this.canvas.getContext("2d");
     this.canvas.width = this.el.clientWidth;
     this.canvas.height = this.el.clientHeight;
+    this.canvas.style.position = 'absolute';
+    this.canvas.style.top = 0;
+    this.canvas.style.left = 0;
     this.cxt.fillStyle = this.background;
-    this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.width);
+    this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.cxt.strokeStyle = this.color;
     this.cxt.lineWidth = this.linewidth;
     this.cxt.lineCap = "round";
@@ -45,67 +121,16 @@ function lineCanvas(obj) {
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
-        var top = 0,left = 0, right = 0, bottom = 0;
-
-        for (var i = 0; i < this.canvas.width && !!!top; i++) {
-            for(var j = 0; j < this.canvas.height  && !!!top; j++){
-                var data = this.cxt.getImageData(i,j,1,1);
-                for(var k = 0; k < 4 && !!!top; k++){
-                    if(data.data[k] != 0){
-                        top = i;
-                    }
-                }
-            }
+        if(this.clearOnSubmit){
+            this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
         }
-        for (var i = 0; i < this.canvas.height && !!!left; i++) {
-            for(var j = 0; j < this.canvas.width  && !!!left; j++){
-                var data = this.cxt.getImageData(i,j,1,1);
-                for(var k = 0; k < 4 && !!!left; k++){
-                    if(data.data[k] != 0){
-                        left = i;
-                    }
-                }
-            }
+        !!this.onsubmit && this.onsubmit(this.canvas.toDataURL());
+        if(this.closeOnSubmit){
+            this.el.removeChild(this.container);
         }
-        for (var i = this.canvas.height; i > 0 && !!!bottom; i--) {
-            for(var j = 0; j < this.canvas.width  && !!!bottom; j++){
-                var data = this.cxt.getImageData(i,j,1,1);
-                for(var k = 0; k < 4 && !!!bottom; k++){
-                    if(data.data[k] != 0){
-                        bottom = i;
-                    }
-                }
-            }
-        }
-        for (var i = this.canvas.width; i > 0 && !!!right; i--) {
-            for(var j = 0; j < this.canvas.height  && !!!right; j++){
-                var data = this.cxt.getImageData(i,j,1,1);
-                for(var k = 0; k < 4 && !!!right; k++){
-                    if(data.data[k] != 0){
-                        right = i;
-                    }
-                }
-            }
-        }
+    }.bind(this), false);
 
-
-        var imgData = this.canvas.getImageData(left,top,right - left,bottom - top);
-        this.canvas1 = document.createElement("canvas");
-        this.el.appendChild(this.canvas1);
-        this.canvas1.width = right - left;
-        this.canvas1.height = bottom - top;
-        this.cxt1 = this.canvas1.getContext("2d");
-        this.cxt1.putImageData(imgData,0,0);
-
-        var imgBase64 = this.canvas1.toDataURL();
-        console.log(imgBase64);
-
-
-
-        this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        var img = document.getElementById("img");
-        img.style.display = 'block';
-        img.src = imgBase64;
-        this.el.removeChild(this.canvas1);
+    this.close.addEventListener("touchstart",function(){
+        this.el.removeChild(this.container);
     }.bind(this), false);
 };
