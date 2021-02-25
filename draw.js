@@ -45,11 +45,67 @@ function lineCanvas(obj) {
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
-        var imgBase64 = this.canvas.toDataURL();
+        var top = 0,left = 0, right = 0, bottom = 0;
+
+        for (var i = 0; i < this.canvas.width && !!!top; i++) {
+            for(var j = 0; j < this.canvas.height  && !!!top; j++){
+                var data = this.cxt.getImageData(i,j,1,1);
+                for(var k = 0; k < 4 && !!!top; k++){
+                    if(data.data[k] != 0){
+                        top = i;
+                    }
+                }
+            }
+        }
+        for (var i = 0; i < this.canvas.height && !!!left; i++) {
+            for(var j = 0; j < this.canvas.width  && !!!left; j++){
+                var data = this.cxt.getImageData(i,j,1,1);
+                for(var k = 0; k < 4 && !!!left; k++){
+                    if(data.data[k] != 0){
+                        left = i;
+                    }
+                }
+            }
+        }
+        for (var i = this.canvas.height; i > 0 && !!!bottom; i--) {
+            for(var j = 0; j < this.canvas.width  && !!!bottom; j++){
+                var data = this.cxt.getImageData(i,j,1,1);
+                for(var k = 0; k < 4 && !!!bottom; k++){
+                    if(data.data[k] != 0){
+                        bottom = i;
+                    }
+                }
+            }
+        }
+        for (var i = this.canvas.width; i > 0 && !!!right; i--) {
+            for(var j = 0; j < this.canvas.height  && !!!right; j++){
+                var data = this.cxt.getImageData(i,j,1,1);
+                for(var k = 0; k < 4 && !!!right; k++){
+                    if(data.data[k] != 0){
+                        right = i;
+                    }
+                }
+            }
+        }
+
+
+        var imgData = this.canvas.getImageData(left,top,right - left,bottom - top);
+        this.canvas1 = document.createElement("canvas");
+        this.el.appendChild(this.canvas1);
+        this.canvas1.width = right - left;
+        this.canvas1.height = bottom - top;
+        this.cxt1 = this.canvas1.getContext("2d");
+        this.cxt1.putImageData(imgData,0,0);
+
+        var imgBase64 = this.canvas1.toDataURL();
         console.log(imgBase64);
+
+
+
         this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
         var img = document.getElementById("img");
         img.style.display = 'block';
         img.src = imgBase64;
+        this.el.removeChild(this.canvas1);
     }.bind(this), false);
 };
