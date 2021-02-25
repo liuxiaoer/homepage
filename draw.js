@@ -48,6 +48,8 @@ function lineCanvas(obj) {
         var imgBase64 = this.canvas.toDataURL();
         console.log(imgBase64);
         this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        document.getElementById("img").style.display = 'block';
+        var img = document.getElementById("img");
+        img.style.display = 'block';
+        img.src = imgBase64;
     }.bind(this), false);
 };
