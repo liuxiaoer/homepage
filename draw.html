@@ -61,6 +61,8 @@
 </head>
 <body>
   <button onclick="open1()">手签</button>
+  <p>结果:</p>
+  <img id="result"></img>
 </body>
   
   <script>
@@ -68,6 +70,7 @@
       new Signature({
          onsumbit:function(data){
             console.log(data);
+           document.querySelector("#result").src = data;
          }
       })
     }
