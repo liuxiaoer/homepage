@@ -61,11 +61,16 @@
 </head>
 <body>
 <div id="canvas">
-    <p id="clearCanvas">清除</p>
-    <p id="saveCanvas">保存</p>
+  <button onclick="open()">手签</button>
 </div>
 <div>
     <img id="img" onclick="this.style.display = 'none';"></div>
 </body>
+  
+  <script>
+    function open(){
+      new Signature()
+    }
+    </script>
 </html>
 
