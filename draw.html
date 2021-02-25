@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+    html,body{
+    width: 100%;
+    height: 100%;
+}
+#canvas{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+#canvas canvas{
+    display: block;
+}
+#clearCanvas{
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 1px solid #DEDEDE;
+    z-index: 1;
+}
+#saveCanvas{
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #DEDEDE;
+    z-index: 1;
+}
+</style>
+<script type="text/javascript" src="draw.js"></script>
+</head>
+<body>
+<div id="canvas">
+    <p id="clearCanvas">清除</p>
+    <p id="saveCanvas">保存</p>
+</div>
+</body>
+</html>
+
