@@ -22,6 +22,12 @@
       <a href="javascript:qrCodeScan();">二维码扫描</a></br>
        二维码扫描结果：<span id="qrcode_result"></span>
     </div>
+  
+  <div>
+     别名:<input id="alias"></input><br>
+     
+    <button onclick=alias()>绑定推送</button>
+  </div>
 
   </body>
     <script>
@@ -48,6 +54,12 @@
         alert(code)
         window.location.href = code;
       }
+      
+      function alias(){
+        var alias = document.querySelector('#alias').value;
+        CustomJSBridge.addTag(alias);
+      }
+        
     </script>
 
 </html>
