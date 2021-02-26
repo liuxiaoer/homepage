@@ -27,8 +27,8 @@
             onsubmit:function(data,width,height){
                 console.log(data)
                 document.querySelector('#img').src = data;
-                document.querySelector('#img').style.width = width;
-                document.querySelector('#img').style.height = height;
+                document.querySelector('#img').style.width = width + 'px';
+                document.querySelector('#img').style.height = height + 'px';
             }
         })
     }
