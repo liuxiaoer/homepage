@@ -42,15 +42,15 @@ Signature.prototype.resetRect = function(){
 }
 
 Signature.prototype.max = function(n1,n2){
-    if(n1 == -1)return n2;
-    if(n2 == -1)return n1;
-    return n1 > n2 ? n1 : n2;
+    if(n1 == -1)return Math.ceil(n2);
+    if(n2 == -1)return Math.ceil(n1);
+    return n1 > n2 ? Math.ceil(n1) : Math.ceil(n2);
 }
 
 Signature.prototype.min = function(n1,n2){
-    if(n1 == -1)return n2;
-    if(n2 == -1)return n1;
-    return n1 > n2 ? n2 : n1;
+    if(n1 == -1)return Math.floor(n2);
+    if(n2 == -1)return Math.floor(n1);
+    return n1 > n2 ? Math.floor(n2) : Math.floor(n1);
 }
 
 Signature.prototype.clip = function(){
