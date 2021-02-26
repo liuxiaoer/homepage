@@ -41,6 +41,8 @@
 
 <div><a href='draw.html'>手签</a></div>
 
+<div><a href='javascript:clearCache()'>清理缓存</a></div>
+
   </body>
     <script>
       // APP版本号
@@ -72,6 +74,9 @@
         CustomJSBridge.setAlias(alias);
       }
         
+      function clearCache(){
+        CustomJSBridge.clearWebViewCache();
+      }
     </script>
 
 </html>
