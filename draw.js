@@ -128,18 +128,18 @@ Signature.prototype.element = function() {
     //开始绘制
     this.canvas.addEventListener("touchstart", function(e) {
         this.cxt.beginPath();
-        this.rect.x0 = this.min(minX,e.changedTouches[0].pageX);
-        this.rect.x1 = this.max(maxX,e.changedTouches[0].pageX);
-        this.rect.y0 = this.min(minY,e.changedTouches[0].pageY);
-        this.rect.y1 = this.max(maxY,e.changedTouches[0].pageY);
+        this.rect.x0 = this.min(this.rect.x0,e.changedTouches[0].pageX);
+        this.rect.x1 = this.max(this.rect.x1,e.changedTouches[0].pageX);
+        this.rect.y0 = this.min(this.rect.y0,e.changedTouches[0].pageY);
+        this.rect.y1 = this.max(this.rect.y1,e.changedTouches[0].pageY);
         this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
     }.bind(this), false);
     //绘制中
     this.canvas.addEventListener("touchmove", function(e) {
-        this.rect.x0 = this.min(minX,e.changedTouches[0].pageX);
-        this.rect.x1 = this.max(maxX,e.changedTouches[0].pageX);
-        this.rect.y0 = this.min(minY,e.changedTouches[0].pageY);
-        this.rect.y1 = this.max(maxY,e.changedTouches[0].pageY);
+        this.rect.x0 = this.min(this.rect.x0,e.changedTouches[0].pageX);
+        this.rect.x1 = this.max(this.rect.x1,e.changedTouches[0].pageX);
+        this.rect.y0 = this.min(this.rect.y0,e.changedTouches[0].pageY);
+        this.rect.y1 = this.max(this.rect.y1,e.changedTouches[0].pageY);
         this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
         this.cxt.stroke();
     }.bind(this), false);
