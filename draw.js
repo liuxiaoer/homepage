@@ -178,10 +178,10 @@ Signature.prototype.element = function() {
         if(this.clearOnSubmit){
             alert(JSON.stringify(this.rect))
             this.resetRect();
-            //this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
         if(this.closeOnSubmit){
-            //this.el.removeChild(this.container);
+            this.el.removeChild(this.container);
         }
     }.bind(this), false);
 
