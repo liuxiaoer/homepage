@@ -28,7 +28,17 @@ function Signature(params){
     }else{
         this.el = document.querySelector('body');
     }
+    this.resetRect();
     this.element();
+}
+
+Signature.prototype.resetRect = function(){
+    this.rect = {
+        x0:-1,
+        y0:-1,
+        x1:-1,
+        y1:-1
+    }
 }
 
 Signature.prototype.max = function(n1,n2){
@@ -115,39 +125,39 @@ Signature.prototype.element = function() {
     this.cxt.lineWidth = this.linewidth;
     this.cxt.lineCap = "round";
 
-    var minX = maxX = minY = maxY = -1;
-
     //开始绘制
     this.canvas.addEventListener("touchstart", function(e) {
         this.cxt.beginPath();
-        minX = this.min(minX,e.changedTouches[0].pageX);
-        maxX = this.max(maxX,e.changedTouches[0].pageX);
-        minY = this.min(minY,e.changedTouches[0].pageY);
-        maxY = this.max(maxY,e.changedTouches[0].pageY);
+        this.rect.x0 = this.min(minX,e.changedTouches[0].pageX);
+        this.rect.x1 = this.max(maxX,e.changedTouches[0].pageX);
+        this.rect.y0 = this.min(minY,e.changedTouches[0].pageY);
+        this.rect.y1 = this.max(maxY,e.changedTouches[0].pageY);
         this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
     }.bind(this), false);
     //绘制中
     this.canvas.addEventListener("touchmove", function(e) {
-        minX = this.min(minX,e.changedTouches[0].pageX);
-        maxX = this.max(maxX,e.changedTouches[0].pageX);
-        minY = this.min(minY,e.changedTouches[0].pageY);
-        maxY = this.max(maxY,e.changedTouches[0].pageY);
+        this.rect.x0 = this.min(minX,e.changedTouches[0].pageX);
+        this.rect.x1 = this.max(maxX,e.changedTouches[0].pageX);
+        this.rect.y0 = this.min(minY,e.changedTouches[0].pageY);
+        this.rect.y1 = this.max(maxY,e.changedTouches[0].pageY);
         this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
         this.cxt.stroke();
     }.bind(this), false);
     //结束绘制
     this.canvas.addEventListener("touchend", function() {
-        alert(minX,minY,maxX,maxY);
         this.cxt.closePath();
     }.bind(this), false);
     //清除画布
     this.clearEl.addEventListener("click", function() {
+        this.resetRect();
         this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
         !!this.onsubmit && this.onsubmit(this.canvas.toDataURL());
         if(this.clearOnSubmit){
+            alert(JSON.stringify(this.rect))
+            this.resetRect();
             this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
         if(this.closeOnSubmit){
