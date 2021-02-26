@@ -61,12 +61,12 @@ Signature.prototype.clip = function(){
     this.clipCanvas = document.createElement("canvas");
     this.container.appendChild(this.clipCanvas);
     this.clipCxt = this.clipCanvas.getContext("2d");
-    this.clipCanvas.width = clipWidth;
-    this.clipCanvas.height = clipHeight;
+    this.clipCanvas.width = this.clipWidth;
+    this.clipCanvas.height = this.clipHeight;
     this.clipCanvas.style.display = 'none';
 
 
-    var clipData = this.cxt.getImageData(clipX,clipY,clipWidth,clipHeight);
+    var clipData = this.cxt.getImageData(clipX,clipY,this.clipWidth,this.clipHeight);
     this.clipCxt.putImageData(clipData,0,0);
     var clipImage = this.clipCanvas.toDataURL()
     this.container.removeChild(this.clipCanvas);
