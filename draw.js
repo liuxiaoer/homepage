@@ -176,7 +176,6 @@ Signature.prototype.element = function() {
     this.saveEl.addEventListener("click", function() {
         !!this.onsubmit && this.onsubmit(this.clip(),this.clipWidth,this.clipHeight);
         if(this.clearOnSubmit){
-            alert(JSON.stringify(this.rect))
             this.resetRect();
             this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
