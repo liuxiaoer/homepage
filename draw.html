@@ -16,7 +16,7 @@
     html,body{
     width: 100%;
     height: 100%;
-      overflow: hidden;
+    overflow: hidden;
 }
 #canvas{
     width: 100%;
@@ -49,31 +49,23 @@
     z-index: 1;
 }
 
-#img{
-    position: absolute;
-    top: 0;
-    margin-left: 0;
-    width: 100%;
-    height: 100%;
-}
 </style>
-<script type="text/javascript" src="draw.js"></script>
+<script type="text/javascript" src="draw.js?version=v1.0.0"></script>
 </head>
 <body>
-  <button onclick="open1()">手签</button>
-  <p>结果:</p>
-  <img id="result"></img>
+    <img src="" id="img" style="width: 300px;height: 500px;background: #999;">
+    <br>
+    <button onclick="sig()">手签</button>
 </body>
-  
-  <script>
-    function open1(){
-      new Signature({
-         onsumbit:function(data){
-            console.log(data);
-           document.querySelector("#result").src = data;
-         }
-      })
+<script type="text/javascript">
+    function sig() {
+        new Signature({
+            onsubmit:function(data){
+                console.log(data)
+                document.querySelector('#img').src = data;
+            }
+        })
     }
-    </script>
+</script>
 </html>
 
