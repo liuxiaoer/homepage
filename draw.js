@@ -53,6 +53,21 @@ Signature.prototype.min = function(n1,n2){
     return n1 > n2 ? n2 : n1;
 }
 
+Signature.prototype.clip = function(){
+    this.clipCanvas = document.createElement("canvas");
+    this.container.appendChild(this.clipCanvas);
+    this.clipCxt = this.clipCanvas.getContext("2d");
+    this.clipCanvas.width = (this.rect.x1 - this.rect.x0) + 'px';
+    this.clipCanvas.height = (this.rect.y1 - this.rect.y0) + 'px';
+    this.clipCanvas.style.display = 'none';
+
+    var clipData = this.cxt.getImageData(this.rect.x0,this.rect.y0,this.rect.x1,this.rect.y1);
+    this.clipCxt.putImageData(this.rect.x0,this.rect.y0,clipData);
+    var clipImage = this.clipCanvas.toDataURL()
+    this.container.removeChild(this.clipCanvas);
+    return clipImage;
+}
+
 Signature.prototype.element = function() {
     this.container = document.createElement('div');
     this.container.style.position = 'fixed';
@@ -154,7 +169,7 @@ Signature.prototype.element = function() {
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
-        !!this.onsubmit && this.onsubmit(this.canvas.toDataURL());
+        !!this.onsubmit && this.onsubmit(this.clip());
         if(this.clearOnSubmit){
             alert(JSON.stringify(this.rect))
             this.resetRect();
