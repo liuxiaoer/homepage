@@ -1,3 +1,12 @@
+// window.onload = function() {
+//     var lc = new Signature({
+//         onsubmit:function(imgData){
+//             //imgData 字符串
+//             document.querySelector('#img').src=imgData
+//         }
+//     });
+// };
+
 function Signature(params){
     this.clearOnSubmit = true;
     this.closeOnSubmit = true;
@@ -20,6 +29,14 @@ function Signature(params){
         this.el = document.querySelector('body');
     }
     this.element();
+}
+
+Signature.prototype.max = function(n1,n2){
+    return n1 > n2 ? n1 : n2;
+}
+
+Signature.prototype.min = function(n1,n2){
+    return n1 > n2 ? n2 : n1;
 }
 
 Signature.prototype.element = function() {
@@ -93,18 +110,30 @@ Signature.prototype.element = function() {
     this.cxt.strokeStyle = this.color;
     this.cxt.lineWidth = this.linewidth;
     this.cxt.lineCap = "round";
+
+    var minX = maxX = minY = maxY = 0;
+
     //开始绘制
     this.canvas.addEventListener("touchstart", function(e) {
         this.cxt.beginPath();
+        minX = this.min(minX,e.changedTouches[0].pageX);
+        maxX = this.max(maxX,e.changedTouches[0].pageX);
+        minY = this.min(minY,e.changedTouches[0].pageY);
+        maxY = this.max(maxY,e.changedTouches[0].pageY);
         this.cxt.moveTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
     }.bind(this), false);
     //绘制中
     this.canvas.addEventListener("touchmove", function(e) {
+        minX = this.min(minX,e.changedTouches[0].pageX);
+        maxX = this.max(maxX,e.changedTouches[0].pageX);
+        minY = this.min(minY,e.changedTouches[0].pageY);
+        maxY = this.max(maxY,e.changedTouches[0].pageY);
         this.cxt.lineTo(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
         this.cxt.stroke();
     }.bind(this), false);
     //结束绘制
     this.canvas.addEventListener("touchend", function() {
+        alert(minX,minY,maxX,maxY);
         this.cxt.closePath();
     }.bind(this), false);
     //清除画布
