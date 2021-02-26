@@ -1,4 +1,3 @@
-
 function Signature(params){
     this.clearOnSubmit = true;
     this.closeOnSubmit = true;
@@ -110,14 +109,14 @@ Signature.prototype.element = function() {
     }.bind(this), false);
     //清除画布
     this.clearEl.addEventListener("click", function() {
-        this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
-        if(this.clearOnSubmit){
-            this.cxt.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        }
         !!this.onsubmit && this.onsubmit(this.canvas.toDataURL());
+        if(this.clearOnSubmit){
+            this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        }
         if(this.closeOnSubmit){
             this.el.removeChild(this.container);
         }
