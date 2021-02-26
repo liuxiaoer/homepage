@@ -65,6 +65,7 @@ Signature.prototype.clip = function(){
     this.clipCxt.putImageData(clipData,this.rect.x0,this.rect.y0);
     var clipImage = this.clipCanvas.toDataURL()
     this.container.removeChild(this.clipCanvas);
+    alert(clipImage);
     return clipImage;
 }
 
