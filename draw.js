@@ -54,18 +54,22 @@ Signature.prototype.min = function(n1,n2){
 }
 
 Signature.prototype.clip = function(){
+    var clipX = this.rect.x0;
+    var clipY = this.rect.y0;
+    var clipWidth = this.rect.x1 - this.rect.x0;
+    var clipHeight = this.rect.y1 - this.rect.y0;
     this.clipCanvas = document.createElement("canvas");
     this.container.appendChild(this.clipCanvas);
     this.clipCxt = this.clipCanvas.getContext("2d");
-    this.clipCanvas.width = (this.rect.x1 - this.rect.x0) + 'px';
-    this.clipCanvas.height = (this.rect.y1 - this.rect.y0) + 'px';
-    this.clipCanvas.style.display = 'none';
+    this.clipCanvas.width = clipWidth + 'px';
+    this.clipCanvas.height = clipHeight + 'px';
+    //this.clipCanvas.style.display = 'none';
 
-    var clipData = this.cxt.getImageData(this.rect.x0,this.rect.y0,this.rect.x1 - this.rect.x0,this.rect.y1 - this.rect.y0);
+
+    var clipData = this.cxt.getImageData(clipX,clipY,clipWidth,clipHeight);
     this.clipCxt.putImageData(clipData,0,0);
     var clipImage = this.clipCanvas.toDataURL()
-    this.container.removeChild(this.clipCanvas);
-    alert(clipData);
+    //this.container.removeChild(this.clipCanvas);
     return clipImage;
 }
 
@@ -174,10 +178,10 @@ Signature.prototype.element = function() {
         if(this.clearOnSubmit){
             alert(JSON.stringify(this.rect))
             this.resetRect();
-            this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            //this.cxt.fillRect(0, 0, this.canvas.width, this.canvas.height);
         }
         if(this.closeOnSubmit){
-            this.el.removeChild(this.container);
+            //this.el.removeChild(this.container);
         }
     }.bind(this), false);
 
