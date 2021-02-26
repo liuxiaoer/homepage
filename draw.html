@@ -24,9 +24,11 @@
 <script type="text/javascript">
     function sig() {
         new Signature({
-            onsubmit:function(data){
+            onsubmit:function(data,width,height){
                 console.log(data)
                 document.querySelector('#img').src = data;
+                document.querySelector('#img').style.width = width;
+                document.querySelector('#img').style.height = height;
             }
         })
     }
