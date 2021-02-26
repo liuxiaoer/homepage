@@ -32,10 +32,14 @@ function Signature(params){
 }
 
 Signature.prototype.max = function(n1,n2){
+    if(n1 == -1)return n2;
+    if(n2 == -1)return n1;
     return n1 > n2 ? n1 : n2;
 }
 
 Signature.prototype.min = function(n1,n2){
+    if(n1 == -1)return n2;
+    if(n2 == -1)return n1;
     return n1 > n2 ? n2 : n1;
 }
 
@@ -111,7 +115,7 @@ Signature.prototype.element = function() {
     this.cxt.lineWidth = this.linewidth;
     this.cxt.lineCap = "round";
 
-    var minX = maxX = minY = maxY = 0;
+    var minX = maxX = minY = maxY = -1;
 
     //开始绘制
     this.canvas.addEventListener("touchstart", function(e) {
