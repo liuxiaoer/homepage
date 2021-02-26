@@ -56,8 +56,8 @@ Signature.prototype.min = function(n1,n2){
 Signature.prototype.clip = function(){
     var clipX = this.rect.x0;
     var clipY = this.rect.y0;
-    var clipWidth = this.rect.x1 - this.rect.x0;
-    var clipHeight = this.rect.y1 - this.rect.y0;
+    this.clipWidth = this.rect.x1 - this.rect.x0;
+    this.clipHeight = this.rect.y1 - this.rect.y0;
     this.clipCanvas = document.createElement("canvas");
     this.container.appendChild(this.clipCanvas);
     this.clipCxt = this.clipCanvas.getContext("2d");
@@ -174,7 +174,7 @@ Signature.prototype.element = function() {
     }.bind(this), false);
     //保存图片，直接转base64
     this.saveEl.addEventListener("click", function() {
-        !!this.onsubmit && this.onsubmit(this.clip());
+        !!this.onsubmit && this.onsubmit(this.clip(),this.clipWidth,this.clipHeight);
         if(this.clearOnSubmit){
             alert(JSON.stringify(this.rect))
             this.resetRect();
