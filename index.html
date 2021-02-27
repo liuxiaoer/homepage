@@ -45,6 +45,7 @@
 
 
 <a href="javascript:alert(!!history.pushState);">是否支持history.pushState</a>
+<a href="javascript:logined();">登录成功传数据</a>
 
   </body>
     <script>
@@ -79,6 +80,10 @@
         
       function clearCache(){
         CustomJSBridge.clearWebViewCache();
+      }
+      
+      function logined(){
+        window.webkit.messageHandlers.logined.postMessage({"user":"","tokenId":""});
       }
     </script>
 
