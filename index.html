@@ -83,7 +83,7 @@
       }
       
       function logined(){
-        window.webkit.messageHandlers.logined.postMessage({"user":"","tokenId":""});
+        window.webkit.messageHandlers.logined.postMessage(JSON.stringify({"user":"","tokenId":""}));
       }
     </script>
 
