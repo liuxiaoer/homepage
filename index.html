@@ -12,6 +12,7 @@
 
 
   <head></head>
+  <script type="text/javascript" src="native.js"></script>
   <body>
     <h1>刘小二的主页</h1>
     <div>
@@ -84,7 +85,7 @@
       
       function logined(){
         var data = {"tokenId":"","username":"sysadmin"};
-        window.webkit.messageHandlers.logined.postMessage(data);
+        window.Native.logined(data);
       }
       
       
