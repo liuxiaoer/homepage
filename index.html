@@ -12,6 +12,7 @@
 
 
   <head></head>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script type="text/javascript" src="native.js"></script>
   <body>
     <h1>刘小二的主页</h1>
@@ -55,6 +56,7 @@
   <div id='status'></div>
   
   <script>
+  $(function(){
   // 调起APP
     window.location.href="qbs://qktt/news_detail?cid=xxxxx&detailUrl=xxxxx"
 
@@ -62,6 +64,7 @@
     window.setTimeout(function() {
       document.querySelector('#status').innerHTML='未安装';
     }, 1000)
+    });
   </script>
 </div>
 
