@@ -50,8 +50,9 @@
 <a href="javascript:logout();">注销传数据</a>
 
 <div>
-  <a id='open' style='display:block' href="#">打开情科头条</a>
-  <a id='download' style='display:none' href="#">去下载</a>
+  <a id='open' style='display:block' href="qbs://qktt/news_detail?cid=xxxxx&detailUrl=xxxxx">打开情科头条</a>
+  <a id='download' style='display:block' href="#">去下载</a>
+  <div id='status'></div>
   
   <script>
   // 调起APP
@@ -59,8 +60,7 @@
 
     // 如果超时证明没有安装此APP则跳到下载页
     window.setTimeout(function() {
-      document.querySelector('#open').style='display:none';
-      document.querySelector('#download').style='display:block';
+      document.querySelector('#status').innerHTML='未安装';
     }, 1000)
   </script>
 </div>
