@@ -11,6 +11,10 @@
 </body>
 <script type="text/javascript">
 	function back() {
+		for (c in CustomJSBridge){
+                   console.log(c)
+		}
+		
 		console.log(CustomJSBridge)
 		console.log(CustomJSBridge.goBackAndRefreshPrePage)
 		if(!!CustomJSBridge && !!CustomJSBridge.goBackAndRefreshPrePage){
