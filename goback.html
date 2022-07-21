@@ -11,8 +11,8 @@
 </body>
 <script type="text/javascript">
 	function back() {
-		alert(!!CustomJSBridge)
-		alert(!!CustomJSBridge.goBackAndRefreshPrePage)
+		console.log(CustomJSBridge)
+		console.log(CustomJSBridge.goBackAndRefreshPrePage)
 		if(!!CustomJSBridge && !!CustomJSBridge.goBackAndRefreshPrePage){
 			CustomJSBridge.goBackAndRefreshPrePage()
 		}
